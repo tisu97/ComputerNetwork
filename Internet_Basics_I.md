@@ -8,14 +8,13 @@
 
 *    End systems are connected together by **a network of communication links** and **packet switches (分组交换机)**.  
 
-     communication links, which are made up of different types of **physical media**, including coaxial cable, copper wire, optical fiber, and radio spectrum. 
-
-     Different links can transmit data at different rates, with the **transmission rate** of a link measured in **bits/second**.
-
-     When one end system has data to send to another end system, the sending end system segments the data and adds header bytes to each segment. The resulting packages of information, known as **packets (分组)**, are then sent through the network to the destination end system, where they are reassembled into the original data.
-
-     A packet switch takes a packet arriving on one of its incoming communication links and forwards that packet on one of its outgoing communication links. The two most prominent types in today’s Internet are **routers (路由器)** and **link-layer switches (链路层交换机).**
-
+     *   communication links, which are made up of different types of **physical media**, including coaxial cable, copper wire, optical fiber, and radio spectrum. 
+     *   Different links can transmit data at different rates, with the **transmission rate** of a link measured in **bits/second**.
+     
+     *   When one end system has data to send to another end system, the sending end system segments the data and adds header bytes to each segment. The resulting packages of information, known as **packets (分组)**, are then sent through the network to the destination end system, where they are reassembled into the original data.
+     
+     *   A packet switch takes a packet arriving on one of its incoming communication links and forwards that packet on one of its outgoing communication links. The two most prominent types in today’s Internet are **routers (路由器)** and **link-layer switches (链路层交换机).**
+     
 *   End systems access the Internet through **Internet Service Providers (ISPs)**. 
 
 *   End systems, packet switches, and other pieces of the Internet run **protocols (协议) that control the sending and receiving of information within the Internet**.
@@ -70,7 +69,7 @@ The protocols of the various layers are called the **protocol stack (协议栈)*
 
             **`TCP`** provides a **connection-oriented** service to its applications. This service includes **guaranteed delivery** of application-layer messages to the destination and **flow control**. **`TCP`** also **breaks long messages into shorter segments** and provides a **congestion-control mechanism**. 
 
-        *   **`UDP`**
+        *   **UDP**
 
             The **`UDP`** protocol provides a **connectionless service** to its applications. This is a no-frills service that provides **no reliability**, **no flow control**, and **no congestion control**.   
 
@@ -80,9 +79,9 @@ The protocols of the various layers are called the **protocol stack (协议栈)*
 
     *   Network layer moves network-layer packets known as **datagrams (数据报)** from one host to another. 
 
-    *   **Internet transport-layer protocol (TCP or UDP)** in a source host passes a **transport-layer segment** and a **destination address** to the **network layer**.
+    *   **Internet transport-layer protocol (`TCP` or `UDP`)** in a source host passes a **transport-layer segment** and a **destination address** to the **network layer**.
 
-    *   **`IP Protocol`**
+    *   **IP Protocol**
 
         It defines the **fields (字段)** in the **datagram** as well as how the **end systems** and **routers** act on these fields.  
 
