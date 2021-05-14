@@ -8,10 +8,13 @@
 
 *    End systems are connected together by **a network of communication links** and **packet switches (分组交换机)**.  
 
-    *   communication links, which are made up of different types of **physical media**, including coaxial cable, copper wire, optical fiber, and radio spectrum. 
-    *   Different links can transmit data at different rates, with the **transmission rate** of a link measured in **bits/second**.
-    *   When one end system has data to send to another end system, the sending end system segments the data and adds header bytes to each segment. The resulting packages of information, known as **packets (分组)**, are then sent through the network to the destination end system, where they are reassembled into the original data.
-    *   A packet switch takes a packet arriving on one of its incoming communication links and forwards that packet on one of its outgoing communication links. The two most prominent types in today’s Internet are **routers (路由器)** and **link-layer switches (链路层交换机).**
+     communication links, which are made up of different types of **physical media**, including coaxial cable, copper wire, optical fiber, and radio spectrum. 
+
+     Different links can transmit data at different rates, with the **transmission rate** of a link measured in **bits/second**.
+
+     When one end system has data to send to another end system, the sending end system segments the data and adds header bytes to each segment. The resulting packages of information, known as **packets (分组)**, are then sent through the network to the destination end system, where they are reassembled into the original data.
+
+     A packet switch takes a packet arriving on one of its incoming communication links and forwards that packet on one of its outgoing communication links. The two most prominent types in today’s Internet are **routers (路由器)** and **link-layer switches (链路层交换机).**
 
 *   End systems access the Internet through **Internet Service Providers (ISPs)**. 
 
