@@ -8,7 +8,4 @@
 *   Network Layer
 *   Link Layer
 *   Wireless
-*   Workshop 1
-*   Workshop 2
-*   Workshop 3
 
