@@ -100,7 +100,7 @@ The protocols of the various layers are called the **protocol stack (协议栈)*
 
 *   **Physical Layer, bits “on the wire”**
 
-
+*   <img src="\imgs\protocol_service_layer.png" alt="protocol_service_layer" style="zoom:33%;" />
 
 ### 3. Encapsulation
 
@@ -188,6 +188,10 @@ Packet switching allows more users to use the network!
 
 ####  5.5 Delay, loss, throughput in networks  
 
+Three critical performance measure in computer networks: **end-to-end throughput (吞吐量)**, **delay (时延)** and **packet loss (丢包)**.
+
+##### 5.1 Overview of Delay in Packet-Switched Networks  
+
 As a packet travels from one node (host or router) to the subsequent node (host or router) along this path, the  packet suffers from several types of delays at each node along the path. The most important of these delays are the **nodal processing delay (结点处理时延)**, **queuing delay (排队时延)**, **transmission delay (传输时延)**, and **propagation delay (传播时延)**; together, these delays accumulate to give a **total nodal delay (结点总时延)**. 
 
 *   **processing delay**
@@ -222,4 +226,35 @@ As a packet travels from one node (host or router) to the subsequent node (host 
 
         **2 * (10 ^ 8) meters/sec to 3 * (10 ^ 8) meters/sec**  
 
-        
+
+
+
+##### 5.2 Queuing Delay and Packet Loss  
+
+*   <img src="\imgs\queing_delay.png" alt="queing_delay" style="zoom:33%;" />
+
+     								**traffic intensity: 流量强度**
+
+*   **Packet Loss**  
+
+    *   buffers in routers have finite capacity
+    *   packet arriving to full queue dropped (aka lost)
+    *   lost packet may be retransmitted by previous node, by source end system, or not at all  
+
+
+
+##### 5.3 End-to-End Delay
+
+
+
+
+
+##### 5.4 Throughput
+
+Throughput: rate (bits/time unit) at which bits transferred between sender/receiver
+
+*   instantaneous: rate at given point in time
+*   average: rate over longer period of time
+
+The **throughput** is  the transmission rate of the **bottleneck** **link**.  
+
