@@ -172,8 +172,6 @@ if the arrival rate (in bits/sec) exceeds transmission rate of the next link for
 
 A circuit in a link is implemented with either **frequency-division multiplexing (FDM)** or **time-division multiplexing (TDM)**.   
 
-<img src="https://github.com/TrSunOwen/ComputerNetwork/blob/main/imgs/FDM_vs_TDM.png" alt="FDM_vs_TDM" style="zoom: 33%;" />
-
 <img src="imgs/FDM_vs_TDM.png" alt="FDM_vs_TDM" style="zoom: 33%;" />
 
 #### 5.3 Packet Switching vs Circuit Switching  
