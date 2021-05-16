@@ -1,4 +1,4 @@
-# Internet Basics I
+# Internet Basics
 
 ### 1. What's the Internet?
 
