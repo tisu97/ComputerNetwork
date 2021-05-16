@@ -2,8 +2,7 @@
 
 #### 计算机网络笔记
 
-*   Internet Basics I
-*   Internet Basics II
+*   Internet Basics
 *   Transport Layer
 *   Network Layer
 *   Link Layer
