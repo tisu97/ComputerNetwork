@@ -231,7 +231,7 @@ As a packet travels from one node (host or router) to the subsequent node (host 
 
 ##### 5.2 Queuing Delay and Packet Loss  
 
-*   <img src="https://github.com/TrSunOwen/ComputerNetwork/tree/main/imgs/queing_delay.png" alt="queing_delay" style="zoom:33%;" />
+*   <img src="/imgs/queing_delay.png" alt="queing_delay" style="zoom:33%;" />
 
      								**traffic intensity: 流量强度**
 
