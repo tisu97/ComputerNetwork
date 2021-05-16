@@ -174,7 +174,7 @@ A circuit in a link is implemented with either **frequency-division multiplexing
 
 <img src="https://github.com/TrSunOwen/ComputerNetwork/blob/main/imgs/FDM_vs_TDM.png" alt="FDM_vs_TDM" style="zoom: 33%;" />
 
-
+<img src="imgs/FDM_vs_TDM.png" alt="FDM_vs_TDM" style="zoom: 33%;" />
 
 #### 5.3 Packet Switching vs Circuit Switching  
 
