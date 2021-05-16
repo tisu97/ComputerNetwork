@@ -100,7 +100,7 @@ The protocols of the various layers are called the **protocol stack (协议栈)*
 
 *   **Physical Layer, bits “on the wire”**
 
-*   <img src="\imgs\protocol_service_layer.png" alt="protocol_service_layer" style="zoom:33%;" />
+*   <img src="https://github.com/TrSunOwen/ComputerNetwork/tree/main/imgs/protocol_service_layer.png" alt="protocol_service_layer" style="zoom:33%;" />
 
 ### 3. Encapsulation
 
@@ -172,7 +172,7 @@ if the arrival rate (in bits/sec) exceeds transmission rate of the next link for
 
 A circuit in a link is implemented with either **frequency-division multiplexing (FDM)** or **time-division multiplexing (TDM)**.   
 
-<img src="imgs/FDM_vs_TDM.png" alt="FDM_vs_TDM" style="zoom: 33%;" />
+<img src="https://github.com/TrSunOwen/ComputerNetwork/tree/main/imgs/FDM_vs_TDM.png" alt="FDM_vs_TDM" style="zoom: 33%;" />
 
 #### 5.3 Packet Switching vs Circuit Switching  
 
