@@ -172,7 +172,7 @@ if the arrival rate (in bits/sec) exceeds transmission rate of the next link for
 
 A circuit in a link is implemented with either **frequency-division multiplexing (FDM)** or **time-division multiplexing (TDM)**.   
 
-<img src="https://github.com/TrSunOwen/ComputerNetwork/tree/main/imgs/FDM_vs_TDM.png" alt="FDM_vs_TDM" style="zoom: 33%;" />
+<img src="\imgs\FDM_vs_TDM.png" alt="FDM_vs_TDM" style="zoom: 33%;" />
 
 #### 5.3 Packet Switching vs Circuit Switching  
 
@@ -231,7 +231,7 @@ As a packet travels from one node (host or router) to the subsequent node (host 
 
 ##### 5.2 Queuing Delay and Packet Loss  
 
-*   <img src="/imgs/queing_delay.png" alt="queing_delay" style="zoom:33%;" />
+*   <img src="\imgs\queing_delay.png" alt="queing_delay" style="zoom:33%;" />
 
      								**traffic intensity: 流量强度**
 
