@@ -199,7 +199,18 @@ The **header** (首部) includes:
 *   **flag field** (6 bit) 标志字段
 
     *   **ACK** bit is used to indicate that the value carried in the acknowledgment field is valid  
+    
     *   The **RST**, **SYN**, and **FIN** bits are used for connection setup and teardown
+    
     *   Setting the **PSH** bit indicates that the receiver should pass the data to the upper layer immediately   
+    
     *   the **URG** bit is used to indicate that there is data in this segment that the sending-side upper-layer entity has marked as “urgent.” 
+    
+        
+
+##### 3.4.2.1 Sequence Numbers and Acknowledgment Numbers  
+
+Two of the most important fields in the TCP segment header are the **sequence number**
+**field** and the **acknowledgment number field**.  These fields are a critical part of TCP’s
+reliable data transfer service. 
 
