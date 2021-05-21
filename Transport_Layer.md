@@ -1,4 +1,4 @@
-# Transport Layer
+Transport Layer
 
 ### 1. Transport services and protocols  
 
@@ -208,9 +208,41 @@ The **header** (首部) includes:
     
         
 
-##### 3.4.2.1 Sequence Numbers and Acknowledgment Numbers  
+##### Sequence Numbers and Acknowledgment Numbers  
 
 Two of the most important fields in the TCP segment header are the **sequence number**
 **field** and the **acknowledgment number field**.  These fields are a critical part of TCP’s
 reliable data transfer service. 
+
+
+
+**TCP views data as an unstructured, but ordered, stream of bytes.**  
+
+*   **Sequence Numbers**
+
+    The sequence number for a segment is the byte-stream number of the first byte in the segment.   
+
+    
+
+    <img src="imgs\Dividing file data into TCP segments.png" alt="Dividing file data into TCP segments" style="zoom:67%;" />
+
+*   **Acknowledgment numbers**  
+
+    *   seq # of next byte expected from other side
+
+    *   cumulative acknowledgments
+
+    *   TCP does not say how to handle out-of-order packets  
+
+        
+
+**Example:**
+
+<img src="imgs\Sequence and acknowledgment numbers example.png" alt="Sequence and acknowledgment numbers example" style="zoom: 67%;" />
+
+The first segment is sent from the client to the server, containing the 1-byte ASCII representation of the letter ‘C’ in its data field. This first segment also has 42 in its sequence number field, because the client has not yet received any data from the server, this first segment will have 79 in its acknowledgment number field.  
+
+The second segment is sent from the server to the client. It serves a dual purpose. First it provides an acknowledgment of the data the server has received. By putting 43 in the acknowledgment field, the server is telling the client that it has successfully received everything up through byte 42 and is now waiting for bytes 43 onward. The second purpose of this segment is to echo back the letter ‘C.’ Thus, the second segment has the ASCII representation of ‘C’ in its data field. This second segment has the sequence number 79, the initial sequence number of the server-toclient data flow of this TCP connection, as this is the very first byte of data that the server is sending. Note that the acknowledgment for client-to-server data is carried in a segment carrying server-to-client data; this acknowledgment is said to be **piggybacked** (捎带) on the server-to-client data segment.  
+
+The third segment is sent from the client to the server. Its sole purpose is to acknowledge the data it has received from the server. (Recall that the second segment contained data—the letter ‘C’—from the server to the client.) This segment has an empty data field (that is, the acknowledgment is not being piggybacked with any client-to-server data). The segment has 80 in the acknowledgment number field because the client has received the stream of bytes up through byte sequence number 79 and it is now waiting for bytes 80 onward. You might think it odd that this segment also has a sequence number since the segment contains no data. But because TCP has a sequence number field, the segment needs to have some sequence number.  
 
