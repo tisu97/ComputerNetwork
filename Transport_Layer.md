@@ -210,15 +210,13 @@ The **header** (首部) includes:
 
 ##### Sequence Numbers and Acknowledgment Numbers  
 
-Two of the most important fields in the TCP segment header are the **sequence number**
-**field** and the **acknowledgment number field**.  These fields are a critical part of TCP’s
-reliable data transfer service. 
+Two of the most important fields in the TCP segment header are the **sequence number** **field** and the **acknowledgment number field**.  These fields are a critical part of TCP’s reliable data transfer service. 
 
 
 
 **TCP views data as an unstructured, but ordered, stream of bytes.**  
 
-*   **Sequence Numbers**
+*   **Sequence Numbers** (在发送方那边)
 
     The sequence number for a segment is the byte-stream number of the first byte in the segment.   
 
@@ -226,7 +224,7 @@ reliable data transfer service.
 
     <img src="imgs\Dividing file data into TCP segments.png" alt="Dividing file data into TCP segments" style="zoom:67%;" />
 
-*   **Acknowledgment numbers**  
+*   **Acknowledgment numbers** (从接收方发回发送方)
 
     *   seq # of next byte expected from other side
 
@@ -234,7 +232,10 @@ reliable data transfer service.
 
     *   TCP does not say how to handle out-of-order packets  
 
-        
+    
+    **报文段丢失，ACK就会重复发送确认上一个未收到的报文段第一个序号**
+    
+    **ACK = SEQ + bytes of data**
 
 **Example:**
 
@@ -246,3 +247,129 @@ The second segment is sent from the server to the client. It serves a dual purpo
 
 The third segment is sent from the client to the server. Its sole purpose is to acknowledge the data it has received from the server. (Recall that the second segment contained data—the letter ‘C’—from the server to the client.) This segment has an empty data field (that is, the acknowledgment is not being piggybacked with any client-to-server data). The segment has 80 in the acknowledgment number field because the client has received the stream of bytes up through byte sequence number 79 and it is now waiting for bytes 80 onward. You might think it odd that this segment also has a sequence number since the segment contains no data. But because TCP has a sequence number field, the segment needs to have some sequence number.  
 
+
+
+##### 3.4.3 Round-Trip Time Estimation and Timeout (往返时间的估计与超时)
+
+TCP uses a timeout/retransmit mechanism to recover from lost segments (处理报文丢失).  
+
+The timeout should be larger than the connection’s round-trip time (RTT), that is, the time from when a segment is sent until it is acknowledged.  
+
+**How to set TCP timeout value?**
+
+*   longer than RTT
+    *   but RTT varies
+*   too short: premature timeout, unnecessary retransmissions 
+*   too long: slow reaction to segment loss
+
+
+
+##### 3.4.3.1 Estimating the Round-Trip Time
+
+**How to estimate RTT?**
+
+*   SampleRTT: measured time from segment transmission until ACK receipt
+    *   ignore retransmissions
+*   SampleRTT will vary, want estimates that are “smoother”
+    *   average several recent measurements, not just current SampleRTT  
+
+
+
+The sample RTT, denoted SampleRTT, for a segment is the amount of time between when the segment is sent (that is, passed to IP) and when an acknowledgment for the segment is received. 
+
+
+
+**EstimatedRTT = (1- *a*) * *EstimatedRTT* + *a* * *SampleRTT***
+
+*   exponential weighted moving average
+*    influence of past sample decreases exponentially fast
+*   typical value: *a* = 0.125  
+
+
+
+**In addition to having an estimate of the RTT, it is also valuable to have a measure of the variability of the RTT, that is DevRTT.**  
+
+***DevRTT = (1 – b) • DevRTT + b • |SampleRTT – EstimatedRTT|***  
+
+Typically, b = 0.25  
+
+If the SampleRTT values have little fluctuation, then DevRTT will be small; on the other hand, if there is a lot of fluctuation, DevRTT will be large.   
+
+
+
+##### 3.4.3.2 Timeout Interval  
+
+**Timeout interval: EstimatedRTT plus “safety margin”**
+
+*   **large variation in EstimatedRTT -> larger safety margin**   
+
+
+
+**TimeoutInterval = EstimatedRTT + 4 * DevRTT** **(safety margin)**  
+
+
+
+##### 3.4.3 TCP connection management
+
+**Establish a TCP connection (three-way handshake)**
+
+1.  The client-side TCP first sends a special TCP segment to the server-side TCP. This special segment contains no application-layer data. But  **the SYN bit is set to 1**.  For this reason, this special segment is referred to as a **SYN segment**.   
+
+    In addition, the client randomly chooses an initial sequence number (client_isn) and puts this number in the sequence number field of the initial TCP SYN segment.  
+
+2.  Once the IP datagram containing the TCP SYN segment arrives at the server host, the server extracts the TCP SYN segment
+    from the datagram, allocates the TCP buffers and variables to the connection, and sends a connection-granted segment to the client TCP.   
+
+    This connection-granted segment also contains no application layer data. However, it does contain three important pieces of information in the segment header. 
+
+    First, the SYN bit is set to 1. 
+
+    Second, the acknowledgment field of the TCP segment header is set to **client_isn+1**.  
+
+    Finally, the server chooses its own initial sequence number (server_isn) and puts this value in the sequence number field of the TCP segment header.  
+
+    The connection granted segment is referred to as a **SYNACK segment**.  
+
+3.  Upon receiving the SYNACK segment, the client also allocates buffers and variables to the connection. 
+
+    The client host then sends the server yet another segment; this last segment acknowledges the server’s connection-granted segment (the client does so by putting the value **server_isn+1 in the acknowledgment** field of the TCP segment header). 
+
+    **The SYN bit is set to zero**, since the connection is established. 
+
+    This third stage of the three-way handshake may carry client-to-server data in the segment payload.  
+
+    <img src="imgs\TCPestablishment.png" alt="TCPestablishment" style="zoom: 67%;" />
+
+
+
+**Terminate the TCP connection**
+
+<img src="imgs\TCPtermination.png" alt="TCPtermination" style="zoom:67%;" />
+
+1.  The client application process issues a close  command. This causes the client TCP to send a special TCP segment to the server process. This special segment has a flag bit in the segment’s header, the FIN bit is set to 1.   
+
+2.  When the server receives this segment, it sends the client an acknowledgment segment in return.  
+
+3.  The server then sends its own shutdown segment, which has the FIN bit set to 1.   
+
+4.  Finally, the client acknowledges the server’s shutdown segment. 
+
+
+
+#### 3.5 TCP congestion control(TCP拥塞控制)
+
+**TCP congestion-control algorithm**
+
+*   slow start (慢启动)
+
+    the TCP send rate starts slow but grows exponentially during the slow start phase.  
+
+*   congestion avoidance (拥塞避免)
+
+    linear increase  
+
+*   fast recovery (快速恢复)
+
+
+
+Slow start and congestion avoidance are mandatory components of TCP, differing in how they increase the size of cwnd in response to received ACKs.     
