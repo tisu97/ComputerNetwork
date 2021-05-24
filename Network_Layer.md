@@ -191,3 +191,92 @@ However, if TCP is being used at the transport layer, then TCP will recover from
 
 #### 3.3 IPv4 Addressing  编址
 
+A host typically has only a single link into the network; when IP in the host wants to send a datagram, it does so over this link. 
+
+The boundary between the host and the physical link is called an **interface**.   
+
+*   host typically has one or two interfaces (e.g., wired Ethernet, wireless 802.11)  
+
+The boundary between the router and any one of its links is also called an **interface**.  
+
+*   routers typically have multiple interfaces
+
+**IP addresses are associated with each interface.**  
+
+**Each IP address is 32 bits long (4 bytes).** In total, there are 2^32 possible IP addresses.
+
+These addresses are typically written in **dotted-decimal notation (点分十进制记方法)**.   
+
+**e.g.** 
+
+*223.1.1.1 = 11011111 00000001 00000001 00000001*  
+
+
+
+##### 3.3.1 Subnet (子网)
+
+<img src="imgs\IP_subnet.png" alt="IP_subnet" style="zoom:67%;" />
+
+The three hosts in the upper-left portion of the figure above, and the router interface to which they are connected, all have an IP address of the form **223.1.1.xxx**. That is, they all have the **same leftmost 24 bits** in their IP address.  
+
+In IP terms, this network interconnecting three host interfaces and one router interface forms a **subnet** . (A subnet is also called an IP network or simply a network in the Internet literature.)  
+
+IP addressing assigns an address to this subnet: 223.1.1.0/24, where the **/24 notation**, sometimes known as a **subnet mask (子网掩码)**, indicates that the **leftmost 24 bits of the 32-bit quantity define the subnet address**.   
+
+
+
+*   IP address
+    *   subnet part: high order bits
+    *   host part: low order bits
+*   what’s a subnet ?
+    *   device interfaces with same subnet part of IP address
+    *   can physically reach each other **without intervening router**  
+
+
+
+##### 3.3.2 Classless Interdomain Routing (CIDR)  无类别域间路由选择
+
+**CIDR is the Internet’s address assignment strategy.**  
+
+*   subnet portion of address of arbitrary length
+
+*   address format: a.b.c.d/x, where x is # bits in subnet portion of address  
+
+
+
+**Example:**
+
+<img src="imgs\eg_CIDR.png" alt="eg_CIDR" style="zoom:67%;" />
+
+
+
+##### 3.3.3 IP addresses: how to get one?  
+
+<img src="imgs\get_oneIPAddress.png" alt="get_oneIPAddress" style="zoom:67%;" />
+
+In order to obtain a block of IP addresses for use within an organization’s subnet, a network administrator might first contact its ISP, which would provide addresses from a larger block of addresses that had already been allocated to the ISP. For example, the ISP may itself have been allocated the address block 200.23.16.0/20. The ISP, in turn, could divide its address block into eight equal-sized contiguous address blocks and give one of these address blocks out to each of up to eight organizations that are supported by this ISP. (We have underlined the subnet part of these addresses for your convenience.)  
+
+
+
+##### 3.3.4 Hierarchical addressing: route aggregation  
+
+**Example:**
+
+<img src="imgs\route aggregation.png" alt="route aggregation" style="zoom:67%;" />
+
+This example of an ISP that connects eight organizations to the Internet nicely illustrates how carefully allocated CIDRized addresses facilitate routing. Suppose, as shown in the Figure, that the ISP (which we’ll call Fly-By-Night-ISP) advertises to the outside world that it should be sent any datagrams whose first 20 address bits match 200.23.16.0/20. The rest of the world need not know that within the address block 200.23.16.0/20 there are in fact eight other organizations, each with its own subnets. This ability to use a single prefix to advertise multiple networks is often referred to as address aggregation (also route aggregation or route summarization).  
+
+
+
+**How does an ISP get a block of addresses?**
+ICANN: Internet Corporation for Assigned Names and Numbers
+
+*   allocates addresses
+*   manages DNS
+*   assigns domain names, resolves disputes  
+
+
+
+#### 3.4 Network Address Translation (NAT) 网络地址转换
+
+####  
