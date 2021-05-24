@@ -356,7 +356,7 @@ If the SampleRTT values have little fluctuation, then DevRTT will be small; on t
 
 
 
-#### 3.5 TCP congestion control(TCP拥塞控制)
+#### 4. TCP congestion control(TCP拥塞控制)
 
 **TCP congestion-control algorithm**
 
