@@ -279,4 +279,25 @@ ICANN: Internet Corporation for Assigned Names and Numbers
 
 #### 3.4 Network Address Translation (NAT) 网络地址转换
 
-####  
+ <img src="imgs\NAT1.png" alt="NAT1" style="zoom:67%;" />
+
+
+
+*   range of addresses not needed from ISP: just one IP address for all devices
+*   can change addresses of devices in local network without notifying outside world
+*   can change ISP without changing addresses of devices in local network
+*   devices inside local net not explicitly addressable, visible by outside world  
+
+
+
+*   **outgoing datagrams:** replace (source IP address, port #) of every outgoing datagram to (NAT IP address, new port #)
+    . . . remote clients/servers will respond using (NAT IP address, new port #) as destination addr
+*   **remember (in NAT translation table)** every (source IP address, port #) to (NAT IP address, new port #) translation pair
+*   **incoming datagrams: replace** (NAT IP address, new port #) in dest fields of every incoming datagram with corresponding (source IP address, port #) stored in NAT table  
+
+
+
+**Example:**
+
+<img src="imgs\NAT2.png" alt="NAT2" style="zoom:67%;" />
+
