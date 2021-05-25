@@ -144,6 +144,8 @@ when looking for forwarding table entry for given destination address, use **lon
 
 *   **Time-to-live**  
 
+    The time-to-live (**TTL**) field is included to ensure that datagrams do not circulate forever (due to, for example, a long-lived routing loop) in the network. **This field is decremented by one each time the datagram is processed by a router. If the TTL field reaches 0, the datagram must be dropped.**  
+
 *   **Protocol**  
 
     The value of this field indicates the specific transport-layer protocol to which the data portion of this IP datagram should be passed.   
@@ -156,7 +158,11 @@ when looking for forwarding table entry for given destination address, use **lon
 
 *   **Options**  
 
-    The options fields allow an IP header to be extended. IP options were dropped in the IPv6 header.  
+    The options fields allow an IP header to be extended. 
+
+    the amount of time needed to process an IP datagram at a router can vary greatly. These considerations become particularly important for IP processing in high-performance routers and hosts. 
+
+    For these reasons and others, IP options were dropped in the IPv6 header.  
 
 *   **Data (payload)**  
 
@@ -278,6 +284,10 @@ ICANN: Internet Corporation for Assigned Names and Numbers
 
 
 #### 3.4 Network Address Translation (NAT) 网络地址转换
+
+**LAN** (local area network)&**WAN** (wide area network) 
+
+从局域网到广域网
 
  <img src="imgs\NAT1.png" alt="NAT1" style="zoom:67%;" />
 
