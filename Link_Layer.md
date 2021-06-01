@@ -144,5 +144,236 @@ Clearly, a more robust error-detection scheme is needed!
 
 An error-detection technique used widely in today’s computer networks is based on **cyclic redundancy check (CRC) codes**.  CRC codes are also known as **polynomial codes** since it is possible to view the bit string to be sent as a polynomial whose coefficients are the 0 and 1 values in the bit string, with operations on the bit string interpreted as polynomial arithmetic.  
 
+**To be continued...**
 
+
+
+#### 2.3 Multiple access links, protocols  
+
+##### Two types of links
+
+*   point-to-point
+    *   point to point protocol (PPP) for dial-up access
+    *   point-to-point link between Ethernet switch, host
+*   broadcast (shared wire or medium)
+    *   old-fashioned Ethernet
+    *   802.11 wireless LAN  
+    
+    
+
+##### Multiple access protocol  多路访问协议
+
+*   single shared broadcast channel
+*   two or more simultaneous transmissions by nodes: interference
+    *   collision if node receives two or more signals at the same time  
+
+multiple access protocol
+
+*   distributed algorithm that determines how nodes share channel, i.e., determine when node can transmit
+
+*   communication about channel sharing must use channel itself
+
+    *   no out-of-band channel for coordination  
+
+    
+
+##### An ideal multiple access protocol  
+
+…given broadcast channel of rate R bps
+**desired properties:**
+
+1.  when one node wants to transmit, it can send at rate R
+
+2.  when M nodes want to transmit, each can send at average rate R/M
+
+3.  fully decentralized 协议是分散的!
+
+    *   no special node to coordinate transmissions
+    *   no synchronization of clocks, slots
+
+    *   there is no master node that represents a single point of failure for the network.  
+
+4.  simple  
+
+
+
+**3 types of multiple access protocol **   
+
+**broadcast 广播**
+
+*   channel partitioning protocols (信道划分协议)
+    *   divide channel into smaller “pieces” (time slots, frequency, code)
+    *   allocate piece to node for exclusive use  
+
+*   random access protocols (随机接入协议)
+    *   channel not divided, allow collisions
+    *   “recover” from collisions  
+
+*   taking-turns protocols (轮流协议)
+    *   nodes take turns, but nodes with more to send can take longer turns  
+
+
+
+#### 2.4 Channel partitioning Protocols 信道划分协议  
+
+*   Time-division multiplexing (TDM) 多路复用
+
+*   Frequency-division multiplexing (FDM) 频分多路复用
+
+**Time-division multiplexing (TDM)** and **frequency-division multiplexing (FDM)** are two techniques that can be used to **partition a broadcast channel’s bandwidth** among all nodes sharing that channel.   
+
+
+
+**Suppose** the channel supports N nodes and that the transmission rate of the channel is R bps. 
+
+##### 2.4.1 TDM 
+
+TDM divides time into time frames and further divides each time frame into N time slots.   
+
+Whenever a node has a packet to send, it transmits the packet’s bits during its assigned time slot in the revolving TDM frame. 
+
+Typically, slot sizes are chosen so that a single packet can be transmitted during a slot time.   
+
+<img src="imgs\TDM_example2.png" alt="TDM_example2" style="zoom: 80%;" />
+
+*   access to channel in "rounds"
+*   each station gets fixed length slot (length = pkt trans time) in each round
+*   unused slots go idle (不被使用，等他的时长结束)
+*   example: 6-station LAN, 1,3,4 have pkt, slots 2,5,6 idle  
+
+<img src="imgs\TDM_example1.png" alt="TDM_example1" style="zoom:67%;" />
+
+类比: 一个采用TDM规则的鸡尾酒会允许每个人在固定的时间段内发言同样时长，且不断重复这种模式。
+
+
+
+*   Pros:
+    *   TDM eliminates collisions and is perfectly fair: Each node gets a dedicated transmission rate of R/N bps during each frame time. However,
+*   Cons: 
+    *   a node is limited to an average rate of R/N bps even when it is the only node with packets to send.
+    *   a node must always wait for its turn in the transmission sequence—again, even when it is the only node with a frame to send. 
+
+类比: Imagine the partygoer who is the only one with anything to say (and imagine that this is the even rarer circumstance where everyone wants to hear what that one person has to say). Clearly, TDM would be a poor choice for a multiple access protocol for this particular party.
+
+
+
+##### 2.4.2 FDM
+
+*   channel spectrum divided into frequency bands
+*   each station assigned fixed frequency band
+*   unused transmission time in frequency bands go idle
+*   example: 6-station LAN, 1,3,4 have pkt, frequency bands 2,5,6 idle  
+
+
+
+#### 2.5 Random access protocols  
+
+*   when node has packet to send
+    *   transmit at full channel data rate R 传输结点总以信道全速率进行发送
+    *   no a priori coordination among nodes  
+
+When there is a collision, each node involved in the collision repeatedly retransmits its frame (that is, packet) until its frame gets  
+
+*   two or more transmitting nodes ➜ collision
+
+*   random access MAC protocol specifies
+
+    *   how to detect collisions
+    *   how to recover from collisions (e.g., via delayed retransmissions)
+
+*   examples of random access MAC protocols
+
+    *   slotted ALOHA
+    *   ALOHA
+    *   CSMA, CSMA/CD, CSMA/CA  
+
+    
+
+##### 2.5.1 Slotted ALOHA  时隙ALOHA
+
+We assume:
+
+*   All frames consist of exactly L bits.
+*   Time is divided into slots of size L/R seconds (that is, a slot equals the time to transmit one frame).
+*   Nodes start to transmit frames only at the beginnings of slots.
+*   The nodes are synchronized so that each node knows when the slots begin.
+*   If two or more frames collide in a slot, then all the nodes detect the collision event before the slot ends  
+
+<img src="imgs\SLOT_ALOHA_1.png" alt="SLOT_ALOHA_1" style="zoom: 33%;" />
+
+<img src="imgs\SLOT_ALOHA_EFFICIENCY.png" alt="SLOT_ALOHA_EFFICIENCY" style="zoom:50%;" />
+
+##### 2.5.2 (Pure) ALOHA
+
+<img src="imgs\ALOHA.png" alt="ALOHA" style="zoom:67%;" />
+
+##### 2.5.3 Carrier Sense Multiple Access (CSMA) 载波侦听多路访问
+
+CSMA listen before transmit:
+
+*   if channel sensed idle, transmit entire frame
+*   if channel sensed busy, defer transmission
+
+human analogy: don’t interrupt others!  
+
+
+
+##### 2.5.4 CSMA/CD (collision detection)  
+
+**CSMA/CD: carrier sensing as in CSMA**
+
+*   collisions detected within short time
+*   colliding transmissions aborted, reducing channel wastage
+
+**collision detection**
+
+*   easy in wired LANs: measure signal strengths, compare
+    transmitted, received signals
+*   difficult in wireless LANs: received signal strength overwhelmed by local transmission strength
+*   human analogy: the polite conversationalist  
+
+
+
+**Ethernet CSMA/CD algorithm**  
+
+1.  NIC receives datagram from network layer, creates frame  
+2.  if NIC senses channel idle, starts frame transmission; if NIC senses channel busy, waits until channel idle, then transmits  
+3.  If NIC transmits entire frame without detecting another transmission, NIC is done with frame 
+4.  If NIC detects another transmission while transmitting, aborts and sends jam signal   
+5.  After aborting, NIC enters binary (exponential) backoff:  
+    *   after mth collision, NIC chooses K at random from {0,1,2, …, 2m-1}. NIC waits K·512 bit times, returns to Step 2  
+    *   longer backoff interval with more collisions  
+
+
+
+**CSMA/CD efficiency**  
+
+<img src="imgs\CDMACD_efficiency.png" alt="CDMACD_efficiency" style="zoom:67%;" />
+
+#### 2.6 Taking-Turns Protocols 轮流协议 
+
+##### Polling 轮询协议
+
+<img src="imgs\polling.png" alt="polling" style="zoom:67%;" />
+
+
+
+##### token passing  令牌传递协议
+
+<img src="imgs\tokenpassing.png" alt="tokenpassing" style="zoom:67%;" />
+
+
+
+#### 2.7 Summary of Multiple Access Protocols
+
+*   channel partitioning, by time, frequency or code
+    *   Time Division, Frequency Division
+*   random access (dynamic),
+    *   ALOHA, S-ALOHA, CSMA, CSMA/CD
+    *   carrier sensing: easy in some technologies (wire), hard in others (wireless)
+    *   CSMA/CD used in Ethernet
+    *   CSMA/CA used in 802.11
+*   taking turns
+    *   polling from central site, token passing
+    *   bluetooth, FDDI, token ring  
 
